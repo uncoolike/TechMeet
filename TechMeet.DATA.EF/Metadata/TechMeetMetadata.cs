@@ -72,6 +72,8 @@ namespace TechMeet.DATA.EF
     }
     #endregion
 
+   // ---------- OpenPosition Metadata is not needed for this project ----------- \\
+
     #region Position Metadata
     public class PositionMetadata
     {
