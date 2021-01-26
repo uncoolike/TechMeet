@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace TechMeet.Controllers
+namespace TechMeet.UI.MVC.Controllers
 {
     public class HomeController : Controller
     {

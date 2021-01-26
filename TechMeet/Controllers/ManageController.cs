@@ -6,9 +6,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using TechMeet.Models;
+using TechMeet.UI.MVC.Models;
 
-namespace TechMeet.Controllers
+namespace TechMeet.UI.MVC.Controllers
 {
     [Authorize]
     public class ManageController : Controller

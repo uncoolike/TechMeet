@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace TechMeet
+namespace TechMeet.UI.MVC
 {
     public class BundleConfig
     {

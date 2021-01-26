@@ -5,9 +5,9 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using TechMeet.Models;
+using TechMeet.UI.MVC.Models;
 
-namespace TechMeet
+namespace TechMeet.UI.MVC
 {
     public partial class Startup
     {

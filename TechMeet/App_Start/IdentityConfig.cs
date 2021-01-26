@@ -10,9 +10,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using TechMeet.Models;
+using TechMeet.UI.MVC.Models;
 
-namespace TechMeet
+namespace TechMeet.UI.MVC
 {
     public class EmailService : IIdentityMessageService
     {
