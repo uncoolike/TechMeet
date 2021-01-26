@@ -12,11 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- All Plugin Css -->
-    <link rel="stylesheet" href="~/Content/css/plugins.css">
-
-    <!-- Style & Common Css -->
-    <link rel="stylesheet" href="~/Content/css/common.css">
-    <link rel="stylesheet" href="~/Content/css/main.css">
+    @Styles.Render("~/Content/css")
 </head>
 
 <body>
@@ -35,8 +31,9 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="navbar-menu">
                 <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="@Url.Action("Index", "Home")">Home</a></li>
                     @Html.Partial("_LoginPartial")
+                    <li><a href="@Url.Action("About", "Home")">About</a></li>
                     <li><a href="companies.html">Companies</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Browse</a>
@@ -46,17 +43,24 @@
                             <li><a href="resume.html">Resume Detail</a></li>
                         </ul>
                     </li>
-                    @if (User.IsInRole("Admin, Manager"))
-                    {
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Browse</a>
-                            <ul class="dropdown-menu animated fadeOutUp" style="display: none; opacity: 1;">
-                                <li class="active"><a href="@Url.Action("Index", "Applications")">Applications</a></li>
-                                <li><a href="@Url.Action("Index", "ApplicationStatus")">Application Status</a></li>
-                                <li><a href="@Url.Action("Index", "Location")">Locations</a></li>
-                            </ul>
-                        </li>
-                    }
+                    @* TODO Fix Roles *@
+                    @*@if (User.IsInRole("Admin, Manager"))
+        {*@
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage</a>
+                        <ul class="dropdown-menu animated fadeOutUp" style="display: none; opacity: 1;">
+                            <li class="active"><a href="@Url.Action("Index", "Applications")">Applications</a></li>
+                            <li><a href="@Url.Action("Index", "ApplicationStatus")">Application Status</a></li>
+                            <li><a href="@Url.Action("Index", "Location")">Locations</a></li>
+                            <li><a href="@Url.Action("Index", "OpenPositions")">Open Positions</a></li>
+                            <li><a href="@Url.Action("Index", "Positions")">Positions</a></li>
+                            <li><a href="@Url.Action("Index", "RolesAdmin")">Roles</a></li>
+                            <li><a href="@Url.Action("Index", "UsersAdmin")">Users</a></li>
+                            <li><a href="@Url.Action("Index", "UserDetails")">User Details</a></li>
+                        </ul>
+                    </li>
+                    @*}*@
+                    <li><a href="@Url.Action("Contact", "Home")">Contact</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div>
@@ -123,15 +127,11 @@
 
         </div>
         <div class="copy-right">
-            <p>&copy;Copyright 2018 Jober Desk | Design By <a href="https://themezhub.com/">ThemezHub</a></p>
+            <p>&copy;Copyright @DateTime.Now.Year Isaac Beck | Design By <a href="https://themezhub.com/">ThemezHub</a></p>
         </div>
     </footer>
 
-    <script type="text/javascript" src="~/Content/js/jquery.min.js"></script>
-    <script src="~/Content/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="~/Content/js/owl.carousel.min.js"></script>
-    <script src="~/Content/js/bootsnav.js"></script>
-    <script src="~/Content/js/main.js"></script>
+@Scripts.Render("~/Content/js")
 
     @RenderSection("scripts", required: false)
 </body>

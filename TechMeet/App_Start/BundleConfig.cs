@@ -23,8 +23,18 @@ namespace TechMeet.UI.MVC
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/css/bootstrap.css",
+                      "~/Content/css/site.css",
+                      "~/Content/css/plugins.css",
+                      "~/Content/css/common.css",
+                      "~/Content/css/main.css"));
+
+            bundles.Add(new ScriptBundle("~/Content/js").Include(
+                      "~/Content/js/jquery.min.js",
+                      "~/Content/js/bootstrap.min.js",
+                      "~/Content/js/owl.carousel.min.js",
+                      "~/Content/js/bootsnav.js",
+                      "~/Content/js/main.js"));
         }
     }
 }
