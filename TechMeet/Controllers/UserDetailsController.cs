@@ -17,7 +17,7 @@ namespace TechMeet.Controllers
         // GET: UserDetails
         public ActionResult Index()
         {
-            return View(db.UserDetails.ToList());
+            return View(db.UserDetails.ToList().OrderBy(x => x.LastName));
         }
 
         // GET: UserDetails/Details/5
@@ -46,10 +46,32 @@ namespace TechMeet.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserId,FirstName,LastName,ResumeFilename")] UserDetail userDetail)
+        public ActionResult Create([Bind(Include = "UserId,FirstName,LastName,ResumeFilename")] UserDetail userDetail, HttpPostedFileBase resume)
         {
             if (ModelState.IsValid)
             {
+                string resumeName = "noPDF.pdf";
+                if (resume != null)
+                {
+                    resumeName = resume.FileName;
+
+                    string ext = resumeName.Substring(resumeName.LastIndexOf('.'));
+
+                    string goodExt = ".pdf";
+
+                    if (goodExt.Contains(ext.ToLower()) && (resume.ContentLength <= 4194304))
+                    {
+                        resumeName = Guid.NewGuid() + ext;
+
+                        resume.SaveAs(Server.MapPath("~/Content/resumes" + resumeName));
+                    }
+                    else
+                    {
+                        resumeName = "noPDF.pdf";
+                    }
+                }
+                userDetail.ResumeFilename = resumeName;
+
                 db.UserDetails.Add(userDetail);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -78,10 +100,28 @@ namespace TechMeet.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserId,FirstName,LastName,ResumeFilename")] UserDetail userDetail)
+        public ActionResult Edit([Bind(Include = "UserId,FirstName,LastName,ResumeFilename")] UserDetail userDetail, HttpPostedFileBase resume)
         {
             if (ModelState.IsValid)
             {
+                string resumeName = resume.FileName;
+
+                string ext = resumeName.Substring(resumeName.LastIndexOf('.'));
+
+                string goodExt = ".pdf";
+                if (goodExt.Contains(ext.ToLower()) && (resume.ContentLength <= 4194304))
+                {
+                    resumeName = Guid.NewGuid() + ext;
+
+                    resume.SaveAs(Server.MapPath("~/Content/resumes/" + resumeName));
+
+                    if (userDetail.ResumeFilename != null && userDetail.ResumeFilename != "noPDF.pdf")
+                    {
+                        System.IO.File.Delete(Server.MapPath("~/Content/resumes/" + resumeName.ToString()));
+                    }
+
+                    userDetail.ResumeFilename = resumeName;
+                }
                 db.Entry(userDetail).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -110,6 +150,12 @@ namespace TechMeet.Controllers
         public ActionResult DeleteConfirmed(string id)
         {
             UserDetail userDetail = db.UserDetails.Find(id);
+
+            if (userDetail.ResumeFilename != null && userDetail.ResumeFilename != "noPDF.pdf")
+            {
+                System.IO.File.Delete(Server.MapPath("~/Content/resumes/" + userDetail.ResumeFilename.ToString()));
+            }
+
             db.UserDetails.Remove(userDetail);
             db.SaveChanges();
             return RedirectToAction("Index");

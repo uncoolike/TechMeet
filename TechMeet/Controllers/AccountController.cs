@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using TechMeet.DATA.EF;
 
 namespace TechMeet.UI.MVC.Controllers
 {
@@ -153,6 +154,16 @@ namespace TechMeet.UI.MVC.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    UserDetail newUserDetails = new UserDetail();
+                    newUserDetails.UserId = user.Id;
+                    newUserDetails.FirstName = model.FirstName;
+                    newUserDetails.LastName = model.LastName;
+                    newUserDetails.ResumeFilename = model.ResumeFilename;
+
+                    TechMeetEntities db = new TechMeetEntities();
+                    db.UserDetails.Add(newUserDetails);
+                    db.SaveChanges();
+
                     var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");

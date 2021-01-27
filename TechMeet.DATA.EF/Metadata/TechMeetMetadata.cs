@@ -93,6 +93,11 @@ namespace TechMeet.DATA.EF
     #region UserDetail Metadata
     public class UserDetailMetadata
     {
+        [Display(Name = "User Name")]
+        [Required]
+        [StringLength(128, ErrorMessage = "* User Name must be less than 128 characters and must be unique")]
+        public string UserId { get; set; }
+
         [Display(Name = "First Name")]
         [Required]
         [StringLength(50, ErrorMessage = "* First name can not exceed 50 characters")]

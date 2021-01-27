@@ -221,6 +221,8 @@
     <Content Include="Content\js\owl.carousel.min.js" />
     <Content Include="_Archive\login.html" />
     <Content Include="_Archive\resume.html" />
+    <Content Include="Content\resumes\noPDF.pdf" />
+    <Content Include="Content\resumes\testPDF.pdf" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

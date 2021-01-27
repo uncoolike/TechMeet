@@ -17,7 +17,7 @@ namespace TechMeet.Controllers
         // GET: ApplicationStatus
         public ActionResult Index()
         {
-            return View(db.ApplicationStatus1.ToList());
+            return View(db.ApplicationStatus1.ToList().OrderBy(x => x.StatusName));
         }
 
         // GET: ApplicationStatus/Details/5

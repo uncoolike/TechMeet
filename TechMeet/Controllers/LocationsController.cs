@@ -18,7 +18,7 @@ namespace TechMeet.Controllers
         public ActionResult Index()
         {
             var locations = db.Locations.Include(l => l.UserDetail);
-            return View(locations.ToList());
+            return View(locations.ToList().OrderBy(x => x.StoreNumber));
         }
 
         // GET: Locations/Details/5

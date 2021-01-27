@@ -66,10 +66,12 @@ namespace TechMeet.UI.MVC.Models
     {
         [Required]
         [Display(Name = "First Name")]
+        [StringLength(50, ErrorMessage = "* First name can not exceed 50 characters")]
         public string FirstName { get; set; }
 
         [Required]
         [Display(Name = "Last Name")]
+        [StringLength(50, ErrorMessage = "* Last name can not exceed 50 characters")]
         public string LastName { get; set; }
 
         [Required]
@@ -87,6 +89,10 @@ namespace TechMeet.UI.MVC.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Display(Name = "Resume")]
+        [StringLength(75, ErrorMessage = "* File name can not exceed 75 characters")]
+        public string ResumeFilename { get; set; }
     }
 
     public class ResetPasswordViewModel
