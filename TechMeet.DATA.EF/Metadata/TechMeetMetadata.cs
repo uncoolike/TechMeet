@@ -27,10 +27,10 @@ namespace TechMeet.DATA.EF
         [Required]
         [StringLength(75, ErrorMessage = "* File name can not exceed 75 characters")]
         public string ResumeFilename { get; set; }
-
-        [MetadataType(typeof(ApplicationMetadata))]
-        public partial class Application { }
     }
+
+    [MetadataType(typeof(ApplicationMetadata))]
+    public partial class Application { }
     #endregion
 
     #region ApplicationStatus Metadata
@@ -45,10 +45,10 @@ namespace TechMeet.DATA.EF
         [DisplayFormat(NullDisplayText = "[N/A]")]
         [StringLength(250, ErrorMessage = "* Description can not exceed 250 characters")]
         public string StatusDescription { get; set; }
-
-        [MetadataType(typeof(ApplicationStatusMetadata))]
-        public partial class ApplicationStatus { }
     }
+
+    [MetadataType(typeof(ApplicationStatusMetadata))]
+    public partial class ApplicationStatus { }
     #endregion
 
     #region Location Metadata
@@ -66,13 +66,13 @@ namespace TechMeet.DATA.EF
         [Required]
         [StringLength(2, ErrorMessage = "* State must be initialized using only 2 characters")]
         public string State { get; set; }
-
-        [MetadataType(typeof(LocationMetadata))]
-        public partial class Location { }
     }
+
+    [MetadataType(typeof(LocationMetadata))]
+    public partial class Location { }
     #endregion
 
-   // ---------- OpenPosition Metadata is not needed for this project ----------- \\
+    // ---------- OpenPosition Metadata is not needed for this project ----------- \\
 
     #region Position Metadata
     public class PositionMetadata
@@ -84,10 +84,10 @@ namespace TechMeet.DATA.EF
         [Display(Name = "Description")]
         [DisplayFormat(NullDisplayText = "[N/A]")]
         public string JobDescription { get; set; }
-
-        [MetadataType(typeof(PositionMetadata))]
-        public partial class Position { }
     }
+
+    [MetadataType(typeof(PositionMetadata))]
+    public partial class Position { }
     #endregion
 
     #region UserDetail Metadata
@@ -103,20 +103,18 @@ namespace TechMeet.DATA.EF
         [StringLength(50)]
         public string LastName { get; set; }
 
-        [Display(Name = "Resume Filename")]
+        [Display(Name = "Resume")]
         [DisplayFormat(NullDisplayText = "[N/A]")]
         public string ResumeFilename { get; set; }
+    }
 
-        [MetadataType(typeof(UserDetailMetadata))]
-        public partial class UserDetail
+    [MetadataType(typeof(UserDetailMetadata))]
+    public partial class UserDetail
+    {
+        [Display(Name = "User Name")]
+        public string UserName
         {
-            //TODO Fix this
-
-            //[Display(Name = "User Name")]
-            //public string UserName
-            //{
-            //    get { return $"{FirstName} {LastName}"; }
-            //}
+            get { return $"{FirstName} {LastName}"; }
         }
     }
     #endregion

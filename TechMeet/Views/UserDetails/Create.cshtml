@@ -7,7 +7,7 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "UserDetails", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
@@ -42,8 +42,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ResumeFilename, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ResumeFilename, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ResumeFilename, "", new { @class = "text-danger" })
+                Post Resume: <input type="file" style="display:inline" name="resume" />
             </div>
         </div>
 
