@@ -72,7 +72,21 @@ namespace TechMeet.DATA.EF
     public partial class Location { }
     #endregion
 
-    // ---------- OpenPosition Metadata is not needed for this project ----------- \\
+    #region OpenPosition Metadata
+    public class OpenPositionMetadata
+    {
+        [Required(ErrorMessage = "* Position is required")]
+        [Display(Name = "Job Title")]
+        public int PoisitionId { get; set; }
+
+        [Required(ErrorMessage = "* Store number is required")]
+        [Display(Name = "Store Number")]
+        public int LocationId { get; set; }
+    }
+
+    [MetadataType(typeof(OpenPositionMetadata))]
+    public partial class OpenPosition { }
+    #endregion
 
     #region Position Metadata
     public class PositionMetadata
