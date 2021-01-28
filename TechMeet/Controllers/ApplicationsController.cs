@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TechMeet.DATA.EF;
+using Microsoft.AspNet.Identity;
 
 namespace TechMeet.Controllers
 {
@@ -18,8 +19,27 @@ namespace TechMeet.Controllers
         [Authorize(Roles = "Admin, Manager")]
         public ActionResult Index()
         {
-            var applications = db.Applications.Include(a => a.ApplicationStatu).Include(a => a.OpenPosition).Include(a => a.UserDetail);
-            return View(applications.ToList());
+            
+            string currentUserId = User.Identity.GetUserId();
+            if (User.IsInRole("Admin"))
+            {
+                var applications = db.Applications.Include(a => a.ApplicationStatu).Include(a => a.OpenPosition).Include(a => a.UserDetail);
+                return View(applications.ToList().OrderBy(x => x.OpenPosition.LocationId).OrderBy(x => x.ApplicationDate));
+            }
+
+            if (User.IsInRole("Manager"))
+            {
+                var applications = db.Applications.Where(x => x.OpenPosition.Location.ManagerId == currentUserId);
+                return View(applications.ToList().OrderBy(x => x.ApplicationDate));
+            }
+
+            if (User.IsInRole("Employee"))
+            {
+                var applications = db.Applications.Where(x => x.UserId == currentUserId);
+                return View(applications.ToList().OrderBy(x => x.ApplicationDate));
+            }
+
+            return View();
         }
 
         // GET: Applications/Details/5

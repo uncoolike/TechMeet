@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TechMeet.DATA.EF;
+using Microsoft.AspNet.Identity;
 
 namespace TechMeet.Controllers
 {
@@ -15,10 +16,23 @@ namespace TechMeet.Controllers
         private TechMeetEntities db = new TechMeetEntities();
 
         // GET: OpenPositions
+        [Authorize]
         public ActionResult Index()
         {
-            var openPositions = db.OpenPositions.Include(o => o.Location).Include(o => o.Position);
-            return View(openPositions.ToList());
+            string currentUserID = User.Identity.GetUserId();
+            if (User.IsInRole("Admin"))
+            {
+                var openPositions = db.OpenPositions.Include(o => o.Location).Include(o => o.Position);
+                return View(openPositions.ToList().OrderBy(x => x.LocationId).OrderBy(x => x.Position.Title));
+            }
+
+            if (User.IsInRole("Manager, Employee"))
+            {
+                var openPositions = db.OpenPositions.Where(x => x.Location.ManagerId == currentUserID).Include(o => o.Location).Include(o => o.Position);
+                return View(openPositions.ToList().OrderBy(x => x.Position.Title));
+            }
+
+            return View();
         }
 
         // GET: OpenPositions/Details/5

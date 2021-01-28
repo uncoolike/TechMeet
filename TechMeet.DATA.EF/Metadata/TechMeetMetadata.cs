@@ -17,6 +17,7 @@ namespace TechMeet.DATA.EF
         [Display(Name = "Notes")]
         [DisplayFormat(NullDisplayText = "[N/A]")]
         [StringLength(2000, ErrorMessage = "* Notes can not exceed 2000 characters")]
+        [UIHint("MultilineText")]
         public string ManagerNotes { get; set; }
 
         [Display(Name = "Status")]
