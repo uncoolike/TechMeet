@@ -10,6 +10,7 @@ using TechMeet.DATA.EF;
 
 namespace TechMeet.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ApplicationStatusController : Controller
     {
         private TechMeetEntities db = new TechMeetEntities();

@@ -15,6 +15,7 @@ namespace TechMeet.Controllers
         private TechMeetEntities db = new TechMeetEntities();
 
         // GET: UserDetails
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             return View(db.UserDetails.ToList().OrderBy(x => x.LastName));
@@ -130,6 +131,7 @@ namespace TechMeet.Controllers
         }
 
         // GET: UserDetails/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -145,6 +147,7 @@ namespace TechMeet.Controllers
         }
 
         // POST: UserDetails/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)

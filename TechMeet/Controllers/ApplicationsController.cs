@@ -15,6 +15,7 @@ namespace TechMeet.Controllers
         private TechMeetEntities db = new TechMeetEntities();
 
         // GET: Applications
+        [Authorize(Roles = "Admin, Manager")]
         public ActionResult Index()
         {
             var applications = db.Applications.Include(a => a.ApplicationStatu).Include(a => a.OpenPosition).Include(a => a.UserDetail);
@@ -65,6 +66,7 @@ namespace TechMeet.Controllers
             return View(application);
         }
 
+        [Authorize(Roles = "Admin, Manager")]
         // GET: Applications/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -83,6 +85,7 @@ namespace TechMeet.Controllers
             return View(application);
         }
 
+        [Authorize(Roles = "Admin, Manager")]
         // POST: Applications/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -102,6 +105,7 @@ namespace TechMeet.Controllers
             return View(application);
         }
 
+        [Authorize(Roles = "Admin, Manager")]
         // GET: Applications/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -117,6 +121,7 @@ namespace TechMeet.Controllers
             return View(application);
         }
 
+        [Authorize(Roles = "Admin, Manager")]
         // POST: Applications/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

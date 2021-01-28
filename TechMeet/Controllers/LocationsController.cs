@@ -10,6 +10,7 @@ using TechMeet.DATA.EF;
 
 namespace TechMeet.Controllers
 {
+    [Authorize(Roles ="Admin, Manager, Employee")]
     public class LocationsController : Controller
     {
         private TechMeetEntities db = new TechMeetEntities();
@@ -37,12 +38,14 @@ namespace TechMeet.Controllers
         }
 
         // GET: Locations/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.ManagerId = new SelectList(db.UserDetails, "UserId", "FirstName");
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         // POST: Locations/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -60,7 +63,7 @@ namespace TechMeet.Controllers
             ViewBag.ManagerId = new SelectList(db.UserDetails, "UserId", "FirstName", location.ManagerId);
             return View(location);
         }
-
+        [Authorize(Roles = "Admin")]
         // GET: Locations/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -77,6 +80,7 @@ namespace TechMeet.Controllers
             return View(location);
         }
 
+        [Authorize(Roles = "Admin")]
         // POST: Locations/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -95,6 +99,7 @@ namespace TechMeet.Controllers
         }
 
         // GET: Locations/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -110,6 +115,7 @@ namespace TechMeet.Controllers
         }
 
         // POST: Locations/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
