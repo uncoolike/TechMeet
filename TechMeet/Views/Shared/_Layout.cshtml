@@ -46,20 +46,20 @@
 
                     @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
                     {
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage</a>
-                        <ul class="dropdown-menu animated fadeOutUp" style="display: none; opacity: 1;">
-                            <li class="active"><a href="@Url.Action("Index", "Applications")">Applications</a></li>
-                            <li><a href="@Url.Action("Index", "OpenPositions")">Open Positions</a></li>
-                            <li><a href="@Url.Action("Index", "Positions")">Positions</a></li>
-                            <li><a href="@Url.Action("Index", "UserDetails")">User Details</a></li>
-                            @if (User.IsInRole("Admin"))
-                            {
-                                <li><a href="@Url.Action("Index", "ApplicationStatus")">Application Status</a></li>
-                                <li><a href="@Url.Action("Index", "Locations")">Locations</a></li>
-                                <li><a href="@Url.Action("Index", "RolesAdmin")">Roles</a></li>
-                                <li><a href="@Url.Action("Index", "UsersAdmin")">Users</a></li>
-                            }
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage</a>
+                            <ul class="dropdown-menu animated fadeOutUp" style="display: none; opacity: 1;">
+                                <li class="active"><a href="@Url.Action("Index", "Applications")">Applications</a></li>
+                                <li><a href="@Url.Action("Index", "OpenPositions")">Open Positions</a></li>
+                                <li><a href="@Url.Action("Index", "Positions")">Positions</a></li>
+                                <li><a href="@Url.Action("Index", "UserDetails")">User Details</a></li>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <li><a href="@Url.Action("Index", "ApplicationStatus")">Application Status</a></li>
+                                    <li><a href="@Url.Action("Index", "Locations")">Locations</a></li>
+                                    <li><a href="@Url.Action("Index", "RolesAdmin")">Roles</a></li>
+                                    <li><a href="@Url.Action("Index", "UsersAdmin")">Users</a></li>
+                                }
 
 
 
@@ -67,8 +67,8 @@
 
 
 
-                        </ul>
-                    </li>
+                            </ul>
+                        </li>
                     }
                     <li><a href="@Url.Action("Contact", "Home")">Contact</a></li>
                 </ul>
@@ -76,9 +76,9 @@
         </div>
     </nav>
     <!-- Navigation End  -->
-
-    @RenderBody()
-
+    <div class="col-md-12" style="background-color: white;">
+        @RenderBody()
+    </div>
     <!-- footer start -->
     <footer>
         <div class="container">
@@ -141,7 +141,7 @@
         </div>
     </footer>
 
-@Scripts.Render("~/Content/js")
+    @Scripts.Render("~/Content/js")
 
     @RenderSection("scripts", required: false)
 </body>

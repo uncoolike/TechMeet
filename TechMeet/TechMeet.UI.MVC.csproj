@@ -196,17 +196,6 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\img\logo.png" />
     <Content Include="Content\img\noFile.png" />
-    <Content Include="Content\resumes1dad52d5-254a-470e-a5e5-1bfcd9b3ed4c.pdf" />
-    <Content Include="Content\resumes27f3b895-999d-42b3-9353-87dec21193cc.pdf" />
-    <Content Include="Content\resumes5ea2c9cd-aef4-4a17-b196-d738b6e8b42a.pdf" />
-    <Content Include="Content\resumes6c2f3770-8082-476d-b053-5d4e378b198b.pdf" />
-    <Content Include="Content\resumes8bfc7639-a672-48a7-ab20-0af3ba4052f4.pdf" />
-    <Content Include="Content\resumesa2640f86-66a8-4688-a20c-1efb54d289c5.pdf" />
-    <Content Include="Content\resumesa8ab919e-eba2-4c09-a8ad-1f18d890d95b.pdf" />
-    <Content Include="Content\resumesb583faa5-532e-47cb-ac8e-a0365acb151b.pdf" />
-    <Content Include="Content\resumesbea32b4d-0d5b-4979-8937-6100f5e67aa1.pdf" />
-    <Content Include="Content\resumesbedfa64f-e094-4b30-a75d-0d38507e5a5c.pdf" />
-    <Content Include="Content\resumesf52edd57-a10e-45fe-b61e-a7f2c2deb55f.pdf" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -321,11 +310,6 @@
     <Content Include="Views\Locations\Details.cshtml" />
     <Content Include="Views\Locations\Edit.cshtml" />
     <Content Include="Views\Locations\Index.cshtml" />
-    <Content Include="Views\OpenPositions\Create.cshtml" />
-    <Content Include="Views\OpenPositions\Delete.cshtml" />
-    <Content Include="Views\OpenPositions\Details.cshtml" />
-    <Content Include="Views\OpenPositions\Edit.cshtml" />
-    <Content Include="Views\OpenPositions\Index.cshtml" />
     <Content Include="Views\Positions\Create.cshtml" />
     <Content Include="Views\Positions\Delete.cshtml" />
     <Content Include="Views\Positions\Details.cshtml" />
@@ -337,6 +321,11 @@
     <Content Include="Views\UserDetails\Edit.cshtml" />
     <Content Include="Views\UserDetails\Index.cshtml" />
     <Content Include="Views\Home\EmailConfirmation.cshtml" />
+    <Content Include="Views\OpenPositions\Create.cshtml" />
+    <Content Include="Views\OpenPositions\Delete.cshtml" />
+    <Content Include="Views\OpenPositions\Details.cshtml" />
+    <Content Include="Views\OpenPositions\Edit.cshtml" />
+    <Content Include="Views\OpenPositions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

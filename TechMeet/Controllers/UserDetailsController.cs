@@ -15,7 +15,7 @@ namespace TechMeet.Controllers
         private TechMeetEntities db = new TechMeetEntities();
 
         // GET: UserDetails
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Manager")]
         public ActionResult Index()
         {
             return View(db.UserDetails.ToList().OrderBy(x => x.LastName));
@@ -105,6 +105,21 @@ namespace TechMeet.Controllers
         {
             if (ModelState.IsValid)
             {
+                string resumeName = resume.FileName;
+
+                string ext = resumeName.Substring(resumeName.LastIndexOf("."));
+
+                string goodExt = ".pdf";
+
+                if (goodExt.Contains(ext.ToLower()) && (resume.ContentLength <= 4194304))
+                {
+                    resumeName = Guid.NewGuid() + ext;
+
+                    resume.SaveAs(Server.MapPath("~/Content/resumes/" + resumeName));
+                }
+
+                userDetail.ResumeFilename = resumeName;
+
                 db.Entry(userDetail).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

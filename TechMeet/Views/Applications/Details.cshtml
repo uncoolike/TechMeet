@@ -60,7 +60,11 @@
 
     </dl>
 </div>
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ApplicationId }) |
+    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ApplicationId })
+    }
     @Html.ActionLink("Back to List", "Index")
 </p>

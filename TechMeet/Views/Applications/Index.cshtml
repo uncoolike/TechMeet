@@ -6,16 +6,16 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.ApplicationDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ManagerNotes)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ResumeFilename)
@@ -29,35 +29,53 @@
         <th>
             @Html.DisplayNameFor(model => model.UserDetail.FirstName)
         </th>
-        <th></th>
+        @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.ManagerNotes)
+            </th>
+            <th></th>
+        }
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ApplicationDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ManagerNotes)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ResumeFilename)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ApplicationStatu.StatusName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OpenPosition.OpenPositionId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserDetail.FirstName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ApplicationId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ApplicationId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ApplicationId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResumeFilename)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationStatu.StatusName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OpenPosition.OpenPositionId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserDetail.FirstName)
+            </td>
+
+            @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.ManagerNotes)
+                </td>
+                <td>
+                    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ApplicationId })
+                    }
+                    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                    {
+                        @Html.ActionLink("Details", "Details", new { id = item.ApplicationId })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ApplicationId })
+                    }
+                </td>
+            }
+
+        </tr>
+    }
 
 </table>

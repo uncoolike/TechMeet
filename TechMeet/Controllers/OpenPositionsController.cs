@@ -11,12 +11,39 @@ using Microsoft.AspNet.Identity;
 
 namespace TechMeet.Controllers
 {
+
     public class OpenPositionsController : Controller
     {
         private TechMeetEntities db = new TechMeetEntities();
 
+        public ActionResult OneClickApply(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            OpenPosition openPosition = db.OpenPositions.Find(id);
+            if (openPosition == null)
+            {
+                return HttpNotFound();
+            }
+
+            string currentUserID = User.Identity.GetUserId();
+            Application app = new Application();
+            app.OpenPositionId = openPosition.OpenPositionId;
+            app.UserId = currentUserID;
+            app.ApplicationDate = DateTime.Now;
+            app.ApplicationStatus = 2;
+            UserDetail userDeets = db.UserDetails.Where(x => x.UserId == currentUserID).Single();
+            app.ResumeFilename = userDeets.ResumeFilename;
+            
+            db.Applications.Add(app);
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
         // GET: OpenPositions
-        [Authorize]
         public ActionResult Index()
         {
             string currentUserID = User.Identity.GetUserId();
@@ -26,13 +53,11 @@ namespace TechMeet.Controllers
                 return View(openPositions.ToList().OrderBy(x => x.LocationId).OrderBy(x => x.Position.Title));
             }
 
-            if (User.IsInRole("Manager, Employee"))
+            else
             {
                 var openPositions = db.OpenPositions.Where(x => x.Location.ManagerId == currentUserID).Include(o => o.Location).Include(o => o.Position);
                 return View(openPositions.ToList().OrderBy(x => x.Position.Title));
             }
-
-            return View();
         }
 
         // GET: OpenPositions/Details/5

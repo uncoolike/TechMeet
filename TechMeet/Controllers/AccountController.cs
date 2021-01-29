@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using TechMeet.DATA.EF;
+using System;
 
 namespace TechMeet.UI.MVC.Controllers
 {
-    [Authorize]
     public class AccountController : Controller
     {
         public AccountController()
@@ -144,9 +144,8 @@ namespace TechMeet.UI.MVC.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model, HttpPostedFileBase resume)
         {
             if (ModelState.IsValid)
             {
@@ -154,11 +153,34 @@ namespace TechMeet.UI.MVC.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    UserManager.AddToRole(user.Id, "Employee");
+
+                    string resumeName = "noPDF.pdf";
+                    if (resume != null)
+                    {
+                        resumeName = resume.FileName;
+
+                        string ext = resumeName.Substring(resumeName.LastIndexOf('.'));
+
+                        string goodExt = ".pdf";
+
+                        if (goodExt.Contains(ext.ToLower()) && (resume.ContentLength <= 4194304))
+                        {
+                            resumeName = Guid.NewGuid() + ext;
+
+                            resume.SaveAs(Server.MapPath("~/Content/resumes/" + resumeName));
+                        }
+                        else
+                        {
+                            resumeName = "noPDF.pdf";
+                        }
+                    }
+
                     UserDetail newUserDetails = new UserDetail();
                     newUserDetails.UserId = user.Id;
                     newUserDetails.FirstName = model.FirstName;
                     newUserDetails.LastName = model.LastName;
-                    newUserDetails.ResumeFilename = model.ResumeFilename;
+                    newUserDetails.ResumeFilename = resumeName;
 
                     TechMeetEntities db = new TechMeetEntities();
                     db.UserDetails.Add(newUserDetails);
