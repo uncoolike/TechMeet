@@ -12,6 +12,7 @@ namespace TechMeet.DATA.EF
     {
         [Display(Name = "Date Received")]
         [Required]
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public System.DateTime ApplicationDate { get; set; }
 
         [Display(Name = "Notes")]
@@ -45,6 +46,7 @@ namespace TechMeet.DATA.EF
         [Display(Name = "Description")]
         [DisplayFormat(NullDisplayText = "[N/A]")]
         [StringLength(250, ErrorMessage = "* Description can not exceed 250 characters")]
+        [UIHint("MultilineText")]
         public string StatusDescription { get; set; }
     }
 
@@ -98,6 +100,7 @@ namespace TechMeet.DATA.EF
 
         [Display(Name = "Description")]
         [DisplayFormat(NullDisplayText = "[N/A]")]
+        [UIHint("MultilineText")]
         public string JobDescription { get; set; }
     }
 

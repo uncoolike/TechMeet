@@ -1,40 +1,42 @@
 ﻿@model TechMeet.DATA.EF.OpenPosition
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = $"Delete {Model.Position.Title}?";
 }
+<div class="paper space">
+    <h2 class="spaceup">@ViewBag.Title</h2>
 
-<h2>Delete</h2>
+    <h3 class="text-danger">Are you absolutely sure?</h3>
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Location.StoreNumber)
+            </dt>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>OpenPosition</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Location.StoreNumber)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Location.StoreNumber)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Location.StoreNumber)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Position.Title)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Position.Title)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Position.Title)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Position.Title)
-        </dd>
+        </dl>
 
-    </dl>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-warning" />
+                <br />
+                <br />
+                @Html.ActionLink("Back to Main", "Index")
+            </div>
+        }
+    </div>
 </div>

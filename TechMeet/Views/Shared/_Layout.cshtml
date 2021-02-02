@@ -25,7 +25,7 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="index.html"><img src="~/Content/img/logo.png" class="logo" alt=""></a>
+                <a class="navbar-brand" href="@Url.Action("Index", "Home")"><img src="~/Content/img/logo.png" class="logo" alt=""></a>
             </div>
             <!-- End Header Navigation -->
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -33,58 +33,44 @@
                 <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
                     <li><a href="@Url.Action("Index", "Home")">Home</a></li>
                     @Html.Partial("_LoginPartial")
-                    <li><a href="@Url.Action("About", "Home")">About</a></li>
-                    <li><a href="companies.html">Companies</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Browse</a>
-                        <ul class="dropdown-menu animated fadeOutUp" style="display: none; opacity: 1;">
-                            <li class="active"><a href="browse-job.html">Browse Jobs</a></li>
-                            <li><a href="company-detail.html">Job Detail</a></li>
-                            <li><a href="resume.html">Resume Detail</a></li>
-                        </ul>
-                    </li>
-
-                    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                    <li><a href="@Url.Action("Contact", "Home")">Contact</a></li>
+                    @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Employee"))
                     {
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Explore</a>
                             <ul class="dropdown-menu animated fadeOutUp" style="display: none; opacity: 1;">
-                                <li class="active"><a href="@Url.Action("Index", "Applications")">Applications</a></li>
-                                <li><a href="@Url.Action("Index", "OpenPositions")">Open Positions</a></li>
-                                <li><a href="@Url.Action("Index", "Positions")">Positions</a></li>
-                                <li><a href="@Url.Action("Index", "UserDetails")">User Details</a></li>
-                                @if (User.IsInRole("Admin"))
-                                {
-                                    <li><a href="@Url.Action("Index", "ApplicationStatus")">Application Status</a></li>
-                                    <li><a href="@Url.Action("Index", "Locations")">Locations</a></li>
-                                    <li><a href="@Url.Action("Index", "RolesAdmin")">Roles</a></li>
-                                    <li><a href="@Url.Action("Index", "UsersAdmin")">Users</a></li>
-                                }
-
-
-
-
-
-
-
+                                @* TODO 2.awesome *@
+                                @*<li><a href="@Url.Action("Details", "UserDetails")">Account Details</a></li>*@
+                                <li><a href="@Url.Action("Index","OpenPositions")">Browse Jobs</a></li>
+                                <li><a href="@Url.Action("Index", "Applications")">View Applications</a></li>
+                                    
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <li><a href="@Url.Action("Index", "Positions")">Positions</a></li>
+                                        <li><a href="@Url.Action("Index", "ApplicationStatus")">Application Status</a></li>
+                                        <li><a href="@Url.Action("Index", "Locations")">Locations</a></li>
+                                        <li><a href="@Url.Action("Index", "RolesAdmin")">Roles</a></li>
+                                        <li><a href="@Url.Action("Index", "UsersAdmin")">Users</a></li>
+                                        <li><a href="@Url.Action("Index", "UserDetails")">User Details</a></li>
+                                    }
                             </ul>
                         </li>
                     }
-                    <li><a href="@Url.Action("Contact", "Home")">Contact</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div>
     </nav>
     <!-- Navigation End  -->
-    <div class="col-md-12" style="background-color: white;">
+    <div class="col-md-12  text-center" style="background-color: white;">
         @RenderBody()
     </div>
     <!-- footer start -->
     <footer>
         <div class="container">
-            <div class="col-md-3 col-sm-6">
-                <h4>Featured Job</h4>
-                <ul>
+            <div class="col-md-3 col-sm-6 space">
+                <h4 class="spaceup">Featured Job</h4>
+                @* TODO: V2.awesome *@
+                @*<ul>
                     <li><a href="#">Browse Jobs</a></li>
                     <li><a href="#">Premium MBA Jobs</a></li>
                     <li><a href="#">Access Database</a></li>
@@ -92,12 +78,12 @@
                     <li><a href="#">Report a Problem</a></li>
                     <li><a href="#">Mobile Site</a></li>
                     <li><a href="#">Jobs by Skill</a></li>
-                </ul>
+                </ul>*@
             </div>
 
             <div class="col-md-3 col-sm-6">
-                <h4>Latest Job</h4>
-                <ul>
+                <h4 class="spaceup">Latest Job</h4>
+                @*<ul>
                     <li><a href="#">Browse Jobs</a></li>
                     <li><a href="#">Premium MBA Jobs</a></li>
                     <li><a href="#">Access Database</a></li>
@@ -105,33 +91,31 @@
                     <li><a href="#">Report a Problem</a></li>
                     <li><a href="#">Mobile Site</a></li>
                     <li><a href="#">Jobs by Skill</a></li>
-                </ul>
+                </ul>*@
             </div>
 
             <div class="col-md-3 col-sm-6">
-                <h4>Reach Us</h4>
-                <address>
+                <h4 class="spaceup">Reach Us</h4>
+                @*<address>
                     <ul>
                         <li>
-                            1201, Murakeu Market, QUCH07<br>
-                            United Kingdon
+                            Kansas City, <br />
+                            Missouri
                         </li>
-                        <li>Email: Support@job.com</li>
-                        <li>Call: 044 123 458 65879</li>
-                        <li>Skype: job@skype</li>
-                        <li>FAX: 123 456 85</li>
+                        <li>Email: support@techmeet.com</li>
+                        <li>Call: 816 458 6587</li>
                     </ul>
-                </address>
+                </address>*@
             </div>
 
             <div class="col-md-3 col-sm-6">
-                <h4>Drop A Mail</h4>
-                <form>
-                    <input type="text" class="form-control input-lg" placeholder="Your Name">
-                    <input type="text" class="form-control input-lg" placeholder="Email...">
-                    <textarea class="form-control" placeholder="Message"></textarea>
-                    <button type="submit" class="btn btn-primary">Login</button>
-                </form>
+                <h4 class="spaceup">Email Us</h4>
+                @* <form>
+            <input type="text" class="form-control input-lg" placeholder="Your Name">
+            <input type="text" class="form-control input-lg" placeholder="Email...">
+            <textarea class="form-control" placeholder="Message"></textarea>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>*@
             </div>
 
 

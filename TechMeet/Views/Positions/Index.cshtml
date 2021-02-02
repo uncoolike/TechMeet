@@ -1,47 +1,41 @@
 ﻿@model IEnumerable<TechMeet.DATA.EF.Position>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Position Titles";
 }
+<div class="paper space">
+    <h2 class="spaceup">@ViewBag.Title</h2>
 
-<h2>Index</h2>
-
-@if (User.IsInRole("Admin") || User.IsInRole("Manager"))
-{
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-}
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.JobDescription)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
+    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.JobDescription)
-            </td>
-            @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
-            {
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.PositionId }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.PositionId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.PositionId })
-                </td>
-            }
-        </tr>
+        <p>
+            @Html.ActionLink("Create New", "Create", null, new { @class = "btn brows-btn admin-btn" })
+        </p>
     }
 
-</table>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink($"{item.Title}", "Details", new { id = item.PositionId })
+                </td>
+                <td>
+                    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.PositionId }, new { @class = "btn brows-btn admin-btn" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.PositionId }, new { @class = "btn brows-btn admin-btn" })
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

@@ -44,19 +44,20 @@ namespace TechMeet.Controllers
         }
 
         // GET: OpenPositions
+        [Authorize]
         public ActionResult Index()
         {
             string currentUserID = User.Identity.GetUserId();
             if (User.IsInRole("Admin"))
             {
-                var openPositions = db.OpenPositions.Include(o => o.Location).Include(o => o.Position);
-                return View(openPositions.ToList().OrderBy(x => x.LocationId).OrderBy(x => x.Position.Title));
+                var openPositions = db.OpenPositions.Include(x => x.Location).Include(x => x.Position);
+                return View(openPositions.ToList().OrderBy(x => x.LocationId).OrderBy(x => x.Location.ManagerId));
             }
 
             else
             {
-                var openPositions = db.OpenPositions.Where(x => x.Location.ManagerId == currentUserID).Include(o => o.Location).Include(o => o.Position);
-                return View(openPositions.ToList().OrderBy(x => x.Position.Title));
+                var OpenPositions = db.OpenPositions.Include(x => x.Location).Include(x => x.Position);
+                return View(OpenPositions.ToList().OrderBy(x => x.Location.ManagerId));
             }
         }
 

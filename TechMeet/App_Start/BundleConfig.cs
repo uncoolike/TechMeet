@@ -27,7 +27,8 @@ namespace TechMeet.UI.MVC
                       "~/Content/css/site.css",
                       "~/Content/css/plugins.css",
                       "~/Content/css/common.css",
-                      "~/Content/css/main.css"));
+                      "~/Content/css/main.css",
+                      "~/Content/css/customstyles.css"));
 
             bundles.Add(new ScriptBundle("~/Content/js").Include(
                       "~/Content/js/jquery.min.js",

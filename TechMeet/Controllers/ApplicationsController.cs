@@ -16,7 +16,7 @@ namespace TechMeet.Controllers
         private TechMeetEntities db = new TechMeetEntities();
 
         // GET: Applications
-        [Authorize(Roles = "Admin, Manager")]
+        [Authorize(Roles = "Admin, Manager, Employee")]
         public ActionResult Index()
         {
             
@@ -39,7 +39,7 @@ namespace TechMeet.Controllers
                 return View(applications.ToList().OrderBy(x => x.ApplicationDate));
             }
 
-            return View();
+            return RedirectToAction("Register", "Accounts");
         }
 
         // GET: Applications/Details/5

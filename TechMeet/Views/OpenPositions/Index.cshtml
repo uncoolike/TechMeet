@@ -1,47 +1,49 @@
 ﻿@model IEnumerable<TechMeet.DATA.EF.OpenPosition>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Available Positions";
 }
-
-<h2>Index</h2>
-@if (User.IsInRole("Admin") || User.IsInRole("Manager"))
-{
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-}
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Location.StoreNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Position.Title)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
+<div class="paper space">
+    <h2 class="spaceup">@ViewBag.Title</h2>
+    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Location.StoreNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Position.Title)
-            </td>
-            <td>
-                @Html.ActionLink("Apply", "OneClickApply", new { id = item.OpenPositionId })
-                @Html.ActionLink("Details", "Details", null, new { id = item.OpenPositionId })
-
-                @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
-                {
-                    @Html.ActionLink("Edit", "Edit", new { id = item.OpenPositionId })
-                    @Html.ActionLink("Delete", "Delete", new { id = item.OpenPositionId })
-                }
-            </td>
-        </tr>
+        <p>
+            @Html.ActionLink("Create New", "Create", null, new { @class = "btn brows-btn admin-btn" })
+        </p>
     }
+    <table class="table">
+        <tr>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Location.StoreNumber)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Position.Title)
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location.StoreNumber)
+                </td>
+                <td>
+                    @Html.ActionLink($"{item.Position.Title}", "Details", new { id = item.OpenPositionId })
+                </td>
+                <td>
+                    @Html.ActionLink("Apply Here", "OneClickApply", new { id = item.OpenPositionId })
+                </td>
+                <td>
+                    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.OpenPositionId }, new { @class = "btn brows-btn admin-btn" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.OpenPositionId }, new { @class = "btn brows-btn admin-btn" })
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

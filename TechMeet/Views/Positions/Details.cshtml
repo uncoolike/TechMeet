@@ -1,37 +1,38 @@
 ﻿@model TechMeet.DATA.EF.Position
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = $"{Model.Title}";
 }
+<div class="paper space">
+    <h2 class="spaceup">@ViewBag.Title</h2>
 
-<h2>Details</h2>
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
 
-<div>
-    <h4>Position</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.JobDescription)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.JobDescription)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.JobDescription)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.JobDescription)
-        </dd>
-
-    </dl>
+        </dl>
+    </div>
+    <p>
+        @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+        {
+            @Html.ActionLink("Edit", "Edit", new { id = Model.PositionId }, new { @class = "btn brows-btn admin-btn" })
+        }
+        <br />
+        <br />
+        @Html.ActionLink("Back to Main", "Index")
+    </p>
 </div>
-<p>
-    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
-    {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.PositionId })
-    }
-    @Html.ActionLink("Back to List", "Index")
-</p>

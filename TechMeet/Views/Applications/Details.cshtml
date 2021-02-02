@@ -1,70 +1,64 @@
 ﻿@model TechMeet.DATA.EF.Application
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = $"{Model.UserDetail.UserName}";
 }
 
-<h2>Details</h2>
+<div class="paper space" style="width:50%;">
+    <h2 class="spaceup">@ViewBag.Title</h2>
 
-<div>
-    <h4>Application</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ApplicationDate)
-        </dt>
+    <div>
+        <dl class="dl-horizontal">
+            @Html.HiddenFor(x => x.OpenPositionId)
+            <dt>
+                @Html.DisplayNameFor(x => x.UserDetail.UserName)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ApplicationDate)
-        </dd>
+            <dd>
+                @Html.DisplayFor(x => x.UserDetail.UserName)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ManagerNotes)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.ApplicationDate)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ManagerNotes)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.ApplicationDate)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ResumeFilename)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.ResumeFilename)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ResumeFilename)
-        </dd>
+            <dd>
+                <a href="@Url.Content("~/Content/resumes/" + Model.ResumeFilename)" target="_blank">View Resume</a>
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ApplicationStatu.StatusName)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.ApplicationStatu.StatusName)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ApplicationStatu.StatusName)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.ApplicationStatu.StatusName)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.OpenPosition.OpenPositionId)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.ManagerNotes)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.OpenPosition.OpenPositionId)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.ManagerNotes)
+            </dd>
+        </dl>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.UserDetail.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserDetail.FirstName)
-        </dd>
-
-    </dl>
+    <p>
+        @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+        {
+            @Html.ActionLink("Edit", "Edit", new { id = Model.ApplicationId }, new { @class = " btn brows-btn admin-btn" })
+        }
+        <br />
+        <br />
+        @Html.ActionLink("Back to Main", "Index")
+    </p>
 </div>
-
-<p>
-    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
-    {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.ApplicationId })
-    }
-    @Html.ActionLink("Back to List", "Index")
-</p>

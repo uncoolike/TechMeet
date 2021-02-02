@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TechMeet.DATA.EF;
+using Microsoft.AspNet.Identity;
 
 namespace TechMeet.Controllers
 {
@@ -15,7 +16,7 @@ namespace TechMeet.Controllers
         private TechMeetEntities db = new TechMeetEntities();
 
         // GET: UserDetails
-        [Authorize(Roles = "Admin, Manager")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             return View(db.UserDetails.ToList().OrderBy(x => x.LastName));
@@ -24,6 +25,7 @@ namespace TechMeet.Controllers
         // GET: UserDetails/Details/5
         public ActionResult Details(string id)
         {
+            string currentUserId = User.Identity.GetUserId();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -32,6 +34,12 @@ namespace TechMeet.Controllers
             if (userDetail == null)
             {
                 return HttpNotFound();
+            }
+
+            if (User.IsInRole("Manager") || User.IsInRole("Employee"))
+            {
+                var userDeets = db.UserDetails.Where(x => x.UserId == currentUserId);
+                return View(userDeets);
             }
             return View(userDetail);
         }
