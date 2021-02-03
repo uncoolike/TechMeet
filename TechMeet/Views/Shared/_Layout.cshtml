@@ -34,6 +34,7 @@
                     <li><a href="@Url.Action("Index", "Home")">Home</a></li>
                     @Html.Partial("_LoginPartial")
                     <li><a href="@Url.Action("Contact", "Home")">Contact</a></li>
+                    <li><a href="@Url.Content("~/Content/IsaacBeckDocumentation.pdf")">Site Documentation</a></li>
                     @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Employee"))
                     {
                         <li class="dropdown">
@@ -43,16 +44,15 @@
                                 @*<li><a href="@Url.Action("Details", "UserDetails")">Account Details</a></li>*@
                                 <li><a href="@Url.Action("Index","OpenPositions")">Browse Jobs</a></li>
                                 <li><a href="@Url.Action("Index", "Applications")">View Applications</a></li>
-                                    
-                                    @if (User.IsInRole("Admin"))
-                                    {
-                                        <li><a href="@Url.Action("Index", "Positions")">Positions</a></li>
-                                        <li><a href="@Url.Action("Index", "ApplicationStatus")">Application Status</a></li>
-                                        <li><a href="@Url.Action("Index", "Locations")">Locations</a></li>
-                                        <li><a href="@Url.Action("Index", "RolesAdmin")">Roles</a></li>
-                                        <li><a href="@Url.Action("Index", "UsersAdmin")">Users</a></li>
-                                        <li><a href="@Url.Action("Index", "UserDetails")">User Details</a></li>
-                                    }
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <li><a href="@Url.Action("Index", "Positions")">Positions</a></li>
+                                    <li><a href="@Url.Action("Index", "ApplicationStatus")">Application Status</a></li>
+                                    <li><a href="@Url.Action("Index", "Locations")">Locations</a></li>
+                                    <li><a href="@Url.Action("Index", "RolesAdmin")">Roles</a></li>
+                                    <li><a href="@Url.Action("Index", "UsersAdmin")">Users</a></li>
+                                    <li><a href="@Url.Action("Index", "UserDetails")">User Details</a></li>
+                                }
                             </ul>
                         </li>
                     }
